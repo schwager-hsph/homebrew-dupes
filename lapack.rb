@@ -12,7 +12,7 @@ class Lapack < Formula
 
   resource "manpages" do
     url "http://netlib.org/lapack/manpages.tgz"
-    sha256 "055da7402ea807cc16f6c50b71ac63d290f83a5f2885aa9f679b7ad11dd8903d"
+    sha256 "96d6d37b49e01143cf27e1980534ee21e01de6e93c1455c63d1e0a799f799dcb"
   end
 
   keg_only :provided_by_osx
