@@ -21,7 +21,7 @@ class Lapack < Formula
 
   def install
     if build.with? "doxygen"
-      system "mv", "make.inc.example", "make.inc"
+      mv "make.inc.example", "make.inc"
       system "make", "man"
       man3.install Dir["DOCS/man/man3/*"]
     end
