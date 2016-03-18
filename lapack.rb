@@ -10,10 +10,6 @@ class Lapack < Formula
     sha256 "ea53fdfa5b8c5fa0127ba056e74a3ce2f292a3094c6ea1f85a1d841732e56f05" => :mavericks
   end
 
-  resource "manpages" do
-    url "http://netlib.org/lapack/manpages.tgz"
-    sha256 "96d6d37b49e01143cf27e1980534ee21e01de6e93c1455c63d1e0a799f799dcb"
-  end
 
   keg_only :provided_by_osx
 
@@ -21,9 +17,11 @@ class Lapack < Formula
   depends_on "cmake" => :build
 
   def install
+    system "mv", "make.inc.example", "make.inc"
+    system "make", "man"
+    man3.install Dir["DOCS/man/man3/*"]
     system "cmake", ".", "-DBUILD_SHARED_LIBS:BOOL=ON", "-DLAPACKE:BOOL=ON", *std_cmake_args
     system "make", "install"
-    man.install resource("manpages")
   end
 
   test do
