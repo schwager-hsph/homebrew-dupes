@@ -13,13 +13,18 @@ class Lapack < Formula
 
   keg_only :provided_by_osx
 
+  option "with-doxygen", "Build man pages with Doxygen"
+  depends_on "doxygen" => :optional
+
   depends_on :fortran
   depends_on "cmake" => :build
 
   def install
-    system "mv", "make.inc.example", "make.inc"
-    system "make", "man"
-    man3.install Dir["DOCS/man/man3/*"]
+    if build.with? "doxygen"
+      system "mv", "make.inc.example", "make.inc"
+      system "make", "man"
+      man3.install Dir["DOCS/man/man3/*"]
+    end
     system "cmake", ".", "-DBUILD_SHARED_LIBS:BOOL=ON", "-DLAPACKE:BOOL=ON", *std_cmake_args
     system "make", "install"
   end
